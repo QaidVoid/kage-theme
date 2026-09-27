@@ -1,0 +1,113 @@
+*kage.txt*  A dark and a light colorscheme from the kage palette
+
+==============================================================================
+CONTENTS                                                       *kage-contents*
+
+  1. Introduction ............................................... |kage-intro|
+  2. Usage ...................................................... |kage-usage|
+  3. Configuration ............................................. |kage-setup|
+  4. Colors in your own code .................................. |kage-colors|
+  5. Plugins and extras ....................................... |kage-extras|
+
+==============================================================================
+1. INTRODUCTION                                                   *kage-intro*
+
+Two variants share one set of roles:
+
+  kage shadow   dark: ink surfaces with a violet undertone and one warm
+                lantern (orange) accent
+  kage dawn     light: ink on a violet-tinted paper; every syntax color keeps
+                at least 4.5:1 contrast
+
+The full token list is in PALETTE.md at the root of the repository.
+
+==============================================================================
+2. USAGE                                                          *kage-usage*
+
+                                                     *kage-shadow* *kage-dawn*
+`:colorscheme kage`          follows 'background': dark gives shadow, light
+                           gives dawn. `:set background=light` switches.
+`:colorscheme kage-shadow`   always the dark variant; sets 'background' dark.
+`:colorscheme kage-dawn`     always the light variant; sets 'background'
+                           light.
+
+==============================================================================
+3. CONFIGURATION                                                  *kage-setup*
+
+Call `setup()` before `:colorscheme`. Every key is optional; the defaults are
+shown:
+>lua
+  require("kage").setup({
+    -- "auto" follows 'background'; "shadow" or "dawn" pins a variant
+    variant = "auto",
+    -- leave the terminal background showing
+    transparent = false,
+    -- set vim.g.terminal_color_0 to vim.g.terminal_color_15
+    terminal_colors = true,
+    -- extra attributes merged into these groups
+    styles = {
+      comments = { italic = true },
+      keywords = {},
+      functions = {},
+      variables = {},
+    },
+    -- change colors before the highlight groups are built
+    on_colors = function(colors) end,
+    -- change groups before they are set
+    on_highlights = function(hl, colors) end,
+  })
+<
+Example: a darker canvas and no italic comments:
+>lua
+  require("kage").setup({
+    styles = { comments = { italic = false } },
+    on_colors = function(c)
+      c.bg = "#0a090d"
+    end,
+  })
+<
+==============================================================================
+4. COLORS IN YOUR OWN CODE                                       *kage-colors*
+
+`require("kage").colors([variant])` returns the color table of the active (or
+the given) variant, after `on_colors`. Key names follow tokyonight's
+(`bg`, `bg_dark`, `bg_float`, `bg_highlight`, `bg_visual`, `fg`, `fg_dark`,
+`comment`, `border`, `blue`, `cyan`, `green`, `magenta`, `purple`, `orange`,
+`red`, `yellow`, `teal`), so code written against that palette works by
+swapping one call. kage adds:
+
+  `lantern`    the accent (same as `orange`)
+  `violet`     same as `purple`
+  `fg_strong`  headings and emphasis
+  `bg_raised`  selected rows in menus
+  `mist`       properties and fields
+  `sand`       parameters
+  `diff`       `add`, `delete`, `change`, `text` backgrounds
+  `git`        `add`, `change`, `delete`, `ignore`
+  `diag_bg`    `error`, `warning`, `info`, `hint` backgrounds
+  `terminal`   the 16 terminal colors, index 1 is color 0
+
+Repaint custom groups on |ColorScheme| so they follow variant changes:
+>lua
+  local function paint()
+    local c = require("kage").colors()
+    vim.api.nvim_set_hl(0, "MyStatusMode", { fg = c.bg_dark, bg = c.lantern })
+  end
+  paint()
+  vim.api.nvim_create_autocmd("ColorScheme", { callback = paint })
+<
+==============================================================================
+5. PLUGINS AND EXTRAS                                            *kage-extras*
+
+Highlights cover the editor UI, legacy syntax, treesitter captures, LSP
+semantic tokens and diagnostics, plus gitsigns, blink.cmp, nvim-cmp,
+fzf-lua, oil, octo, telescope, which-key, treesitter-context,
+indent-blankline, mini.indentscope, snacks indent, flash, lazy, noice,
+trouble and render-markdown.
+
+lualine: `require("lualine").setup({ options = { theme = "kage" } })`
+
+The `extras/` directory holds configs generated from the same palette for
+foot, ghostty, kitty, alacritty, wezterm, fzf, the kage TUI, CSS and JSON.
+
+ vim:tw=78:ts=8:ft=help:norl:

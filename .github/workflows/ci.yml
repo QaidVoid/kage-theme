@@ -1,0 +1,31 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: JohnnyMorganz/stylua-action@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          version: latest
+          args: --check .
+
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: rhysd/action-setup-vim@v1
+        with:
+          neovim: true
+          version: stable
+      - name: Load every variant
+        run: nvim --headless --clean -l scripts/check.lua
+      - name: Extras and PALETTE.md match the palette
+        run: |
+          nvim --headless --clean -l scripts/gen.lua
+          git diff --exit-code -- extras PALETTE.md
