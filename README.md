@@ -112,7 +112,7 @@ Configs for other apps, generated from the same palette:
 | alacritty | `extras/alacritty/kage-*.toml` |
 | wezterm | `extras/wezterm/kage-*.toml` |
 | fzf | `extras/fzf/kage-*.sh` (`FZF_DEFAULT_OPTS` colors) |
-| kage TUI | `extras/kage/kage-*.toml`: copy to `~/.config/kage/themes/`, then `/theme set kage-shadow` |
+| kage TUI | bundled in kage as `kage-shadow` and `kage-dawn` (`default` follows the terminal); `extras/kage/kage-*.toml` reproduce them as a starting point for a custom theme |
 | CSS | `extras/css/kage.css` (`--kage-*` variables for both variants) |
 | JSON | `extras/json/kage.json` (every token, both variants) |
 

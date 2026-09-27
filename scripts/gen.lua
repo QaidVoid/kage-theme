@@ -243,7 +243,11 @@ end
 
 -- kage TUI theme (roles from crates/kage-tui/src/theme/groups.rs) -------------
 
+-- Same role mapping as the bundled kage themes in kage-tui
+-- (crates/kage-tui/src/theme/kage.rs), so these files reproduce them
+-- exactly and are a starting point for a customized copy.
 local function kage_tui(c, v)
+  local util = require("kage.util")
   local roles = {
     { "bg", c.bg },
     { "assistant_fg", c.fg },
@@ -253,13 +257,13 @@ local function kage_tui(c, v)
     { "thinking_fg", c.comment },
     { "tool_bg", c.bg_highlight },
     { "tool_result_fg", c.fg_dark },
-    { "tool_error_bg", c.diag_bg.error },
+    { "tool_error_bg", util.blend(c.red, c.bg, 0.14) },
     { "tool_error_fg", c.red },
-    { "tool_pending_bg", c.bg_float },
-    { "tool_rule", c.fg_gutter },
+    { "tool_pending_bg", util.blend(c.yellow, c.bg, 0.12) },
+    { "tool_rule", c.sand },
     { "tool_error_rule", c.red },
-    { "tool_pending_rule", c.purple },
-    { "custom_fg", c.pink },
+    { "tool_pending_rule", c.yellow },
+    { "custom_fg", c.fg_dark },
     { "status_bg", c.bg },
     { "status_dim_fg", c.fg_dark },
     { "muted_fg", c.fg_dark },
@@ -267,23 +271,23 @@ local function kage_tui(c, v)
     { "selection_color", c.bg_visual },
     { "selection_fg", c.fg_strong },
     { "focus_color", c.fg_strong },
-    { "input_border_normal", c.border },
+    { "input_border_normal", c.fg_gutter },
     { "input_border_insert", c.lantern },
     { "input_border_visual", c.purple },
-    { "input_pill_normal_bg", c.bg_raised },
-    { "input_pill_normal_fg", c.fg_dark },
+    { "input_pill_normal_bg", util.blend(c.fg, c.bg, 0.16) },
+    { "input_pill_normal_fg", c.fg },
     { "input_pill_insert_bg", c.lantern },
     { "input_pill_insert_fg", c.bg_dark },
     { "input_pill_visual_bg", c.purple },
     { "input_pill_visual_fg", c.bg_dark },
     { "input_glyph_fg", c.lantern },
     { "input_placeholder_fg", c.comment },
-    { "input_hint_fg", c.comment },
-    { "modeline_bg", c.bg_dark },
+    { "input_hint_fg", c.fg_dark },
+    { "modeline_bg", c.bg },
     { "modeline_fg", c.fg_dark },
     { "overlay_fg", c.fg },
-    { "overlay_border", c.border },
-    { "overlay_selected_bg", c.bg_raised },
+    { "overlay_border", c.fg_gutter },
+    { "overlay_selected_bg", c.bg_visual },
     { "overlay_selected_fg", c.fg_strong },
     { "warning_fg", c.yellow },
     { "success_fg", c.green },
@@ -292,9 +296,12 @@ local function kage_tui(c, v)
     { "md_link_fg", c.blue },
     { "md_code_fg", c.mist },
   }
-  local out =
-    { header("#", v), "# Copy to ~/.config/kage/themes/kage-" .. v .. ".toml, then /theme set kage-" .. v .. "\n" }
-  out[#out + 1] = 'base = "default"\n\n[colors]\n'
+  local out = {
+    header("#", v),
+    "# kage bundles this palette as `kage-" .. v .. "` (and `default` follows the terminal).\n",
+    "# Copy to ~/.config/kage/themes/<name>.toml to customize it, then /theme set <name>.\n",
+  }
+  out[#out + 1] = 'base = "kage-' .. v .. '"\n\n[colors]\n'
   for _, r in ipairs(roles) do
     out[#out + 1] = r[1] .. ' = "' .. r[2] .. '"\n'
   end
