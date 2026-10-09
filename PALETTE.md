@@ -25,14 +25,14 @@ Two variants: **kage shadow** (dark) and **kage dawn** (light). Copy any value i
 | `purple` | `#a98bfa` | `#6a47cc` | violet: keywords, tags, visual tint, swarms |
 | `magenta` | `#c79bf2` | `#8a3fb5` | spare accent |
 | `green` | `#8bd49c` | `#2b7443` | strings, added, success |
-| `yellow` | `#e8c96a` | `#836409` | types, warnings |
+| `yellow` | `#e8c96a` | `#836409` | warnings |
 | `red` | `#f2727f` | `#bf3649` | errors, removed |
 | `blue` | `#9ab4ff` | `#3456c2` | functions, info, links, changed |
 | `cyan` | `#7dd3d0` | `#157a84` | modules, labels, builtins, regex |
-| `teal` | `#5fc9b0` | `#1c7563` | hints |
+| `teal` | `#5fc9b0` | `#1c7563` | types, hints |
 | `pink` | `#f29ac1` | `#ac3a7a` | macros, attributes, escapes, self |
 | `mist` | `#b8b0d4` | `#5a5282` | properties, fields, raw text |
-| `sand` | `#e9c29a` | `#935628` | parameters |
+| `sand` | `#e9c29a` | `#935628` | warm secondary accent (kage TUI tool rule) |
 | `operator` | `#a39dba` | `#5f5877` | operators |
 | `punct` | `#7c7690` | `#7d7790` | punctuation, delimiters |
 
@@ -83,11 +83,11 @@ Extra indexes used by foot: 16 is `orange`, 17 is `red`. Cursor is `orange` on `
 | strings | `green` |
 | escapes, regex specials | `pink / cyan` |
 | numbers, booleans, constants | `orange` |
-| types, constructors | `yellow` |
-| builtin types | `yellow (italic)` |
+| types, constructors | `teal` |
+| builtin types | `teal (italic)` |
 | variables | `fg` |
 | self, this | `pink (italic)` |
-| parameters | `sand` |
+| parameters | `fg (italic)` |
 | properties, fields | `mist` |
 | modules, namespaces, labels | `cyan` |
 | macros, attributes, decorators | `pink` |

@@ -81,7 +81,7 @@ swapping one call. kage adds:
   `fg_strong`  headings and emphasis
   `bg_raised`  selected rows in menus
   `mist`       properties and fields
-  `sand`       parameters
+  `sand`       warm secondary accent
   `diff`       `add`, `delete`, `change`, `text` backgrounds
   `git`        `add`, `change`, `delete`, `ignore`
   `diag_bg`    `error`, `warning`, `info`, `hint` backgrounds
