@@ -74,8 +74,13 @@ require("kage").setup({
   },
   on_colors = function(colors) end,           -- change colors before groups are built
   on_highlights = function(hl, colors) end,   -- change groups before they are set
+  cache = true,              -- reuse the built groups across sessions
 })
 ```
+
+The cache is rebuilt whenever the options, kage itself or the files defining
+the hooks change. If a hook depends on anything else, call
+`require("kage").clear_cache()` after changing it (see `:help kage-cache`).
 
 See `:help kage` for examples.
 

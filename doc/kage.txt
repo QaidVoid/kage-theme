@@ -55,8 +55,18 @@ shown:
     on_colors = function(colors) end,
     -- change groups before they are set
     on_highlights = function(hl, colors) end,
+    -- reuse the built groups across sessions
+    cache = true,
   })
 <
+                                                    *kage-cache* *kage.clear_cache()*
+With `cache` on, the built groups are saved as bytecode under
+`stdpath("cache")/kage/` and reused while the variant, the options, kage's
+own sources and the files defining `on_colors` and `on_highlights` are
+unchanged. A hook that reads state from elsewhere is not tracked: call
+`require("kage").clear_cache()` after changing that state, or set
+`cache = false`.
+
 Example: a darker canvas and no italic comments:
 >lua
   require("kage").setup({
