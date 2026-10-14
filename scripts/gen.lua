@@ -402,6 +402,44 @@ local function json(value, indent)
   return "{\n" .. table.concat(parts, ",\n") .. "\n" .. indent .. "}"
 end
 
+-- DankMaterialShell custom theme (Material roles from Common/Theme.qml) --------
+
+local function dms(c)
+  return {
+    primary = c.lantern,
+    primaryText = c.bg,
+    primaryContainer = c.bg_search,
+    primaryContainerText = c.fg_strong,
+    secondary = c.purple,
+    secondaryText = c.bg,
+    secondaryContainer = c.bg_visual,
+    secondaryContainerText = c.fg_strong,
+    tertiary = c.green,
+    tertiaryText = c.bg,
+    surface = c.bg,
+    surfaceText = c.fg,
+    surfaceVariant = c.bg_raised,
+    surfaceVariantText = c.fg_dark,
+    surfaceTint = c.lantern,
+    background = c.bg,
+    backgroundText = c.fg,
+    outline = c.fg_gutter,
+    outlineVariant = c.border,
+    surfaceContainerLowest = c.bg_dark,
+    surfaceContainerLow = c.bg_highlight,
+    surfaceContainer = c.bg_float,
+    surfaceContainerHigh = c.bg_raised,
+    surfaceContainerHighest = c.bg_visual,
+    surfaceDim = c.bg_dark,
+    surfaceBright = c.bg_raised,
+    error = c.red,
+    errorText = c.bg,
+    warning = c.yellow,
+    info = c.blue,
+    success = c.green,
+  }
+end
+
 -- PALETTE.md -------------------------------------------------------------------
 
 local USE = {
@@ -513,4 +551,5 @@ write(
 )
 write("extras/css/kage.css", css(all_flat))
 write("extras/json/kage.json", json({ shadow = all_flat.shadow, dawn = all_flat.dawn, base = palette }) .. "\n")
+write("extras/dms/kage.json", json({ name = "kage", dark = dms(all_c.shadow), light = dms(all_c.dawn) }) .. "\n")
 write("PALETTE.md", palette_md(all_c))

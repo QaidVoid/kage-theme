@@ -113,6 +113,7 @@ Configs for other apps, generated from the same palette:
 | wezterm | `extras/wezterm/kage-*.toml` |
 | fzf | `extras/fzf/kage-*.sh` (`FZF_DEFAULT_OPTS` colors) |
 | kage TUI | bundled in kage as `kage-shadow` and `kage-dawn` (`default` follows the terminal); `extras/kage/kage-*.toml` reproduce them as a starting point for a custom theme |
+| DankMaterialShell | `extras/dms/kage.json` (custom theme: shadow as dark, dawn as light) |
 | CSS | `extras/css/kage.css` (`--kage-*` variables for both variants) |
 | JSON | `extras/json/kage.json` (every token, both variants) |
 
@@ -123,6 +124,16 @@ which rejects a plain `[colors]` section):
 ```ini
 [main]
 include=~/.config/foot/kage.ini
+```
+
+For DankMaterialShell, select `extras/dms/kage.json` as the custom theme
+file in its theme settings. It follows DMS's own light and dark mode. The
+equivalent `settings.json` keys are:
+
+```json
+"currentThemeName": "custom",
+"currentThemeCategory": "custom",
+"customThemeFile": "/path/to/kage-theme/extras/dms/kage.json"
 ```
 
 For wezterm, load a scheme file and select it:
